@@ -1,0 +1,173 @@
+{
+  "info": {
+    "name": "ЛР4 Сервис 2 MyThirdTestAppSpringBoot (порт 8084)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Корректный запрос напрямую на Сервис 2 (200, success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"Service 1\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 Старый systemTime: огромная разница во времени (200, success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"Service 1\",\n  \"systemTime\": \"2023-10-07T07:47:56.503Z\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 systemTime не в формате ISO-8601 (200, предупреждение в логе)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"Service 1\",\n  \"systemTime\": \"вчера вечером\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 uid пустой (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"Service 1\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 uid = 123 (400, UnsupportedCodeException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"123\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"Service 1\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8084/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8084",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

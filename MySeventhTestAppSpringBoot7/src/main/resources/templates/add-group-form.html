@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Academic Group</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav th:replace="~{fragments :: navbar('groups')}"></nav>
+
+<div class="container">
+
+    <!-- Эта же форма открывается и для добавления, и для редактирования группы -->
+    <h3 th:text="${academicGroup.id == null} ? 'Add New Academic Group' : 'Update Academic Group'">Add New Academic Group</h3>
+    <hr/>
+
+    <form th:action="@{/saveGroup}" th:object="${academicGroup}" method="POST">
+
+        <div class="mb-3 col-md-5">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control"
+                   placeholder="Enter Group Name" maxlength="20" required/>
+        </div>
+
+        <div class="mb-4 col-md-5">
+            <label for="componentCount" class="form-label">Component count</label>
+            <input type="number" id="componentCount" th:field="*{componentCount}" class="form-control"
+                   placeholder="Enter Number of Students" min="0" max="500" required/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+
+        <input type="hidden" th:field="*{id}"/>
+
+    </form>
+    <hr/>
+    <a th:href="@{/groups}">Back to list</a>
+</div>
+
+</body>
+</html>

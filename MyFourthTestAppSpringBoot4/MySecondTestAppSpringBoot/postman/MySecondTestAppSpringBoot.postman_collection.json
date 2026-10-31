@@ -1,0 +1,470 @@
+{
+  "info": {
+    "name": "ЛР4 Сервис 1 MySecondTestAppSpringBoot (порт 8082)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Корректный запрос: Сервис 1 пересылает на Сервис 2 (200, success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02 uid пустой (400, ValidationException, на Сервис 2 не уходит)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03 operationUid отсутствует (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04 systemTime из пробелов (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"   \",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05 communicationId = 0 (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 0,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "06 communicationId = 100001 (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 100001,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "07 uid длиннее 32 символов (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "08 Все ошибки сразу, пустое тело (400, ValidationException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "09 uid = 123 (400, UnsupportedCodeException, на Сервис 2 не уходит)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"123\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 systemName = CRM, Сервис 1 заменит на Service 1 (200, success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"CRM\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 Нет systemName, Сервис 1 подставит Service 1 (200, success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 systemName = SAP, нет такого значения (400, стандартная ошибка Spring)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"SAP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 Сервис 2 остановлен: корректный запрос (500, UnknownException)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"{{$isoTimestamp}}\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "14 systemTime не в формате ISO-8601 (200, предупреждение в логе Сервиса 2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"uid\": \"1\",\n  \"operationUid\": \"op-1\",\n  \"systemName\": \"ERP\",\n  \"systemTime\": \"вчера вечером\",\n  \"source\": \"web\",\n  \"communicationId\": 1,\n  \"templateId\": 1,\n  \"productCode\": 1,\n  \"smsCode\": 1\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/feedback",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "feedback"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

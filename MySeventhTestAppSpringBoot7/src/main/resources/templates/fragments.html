@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Общая навигационная панель: параметр active подсвечивает текущий раздел -->
+<nav th:fragment="navbar(active)" class="navbar navbar-expand navbar-dark bg-dark mb-4">
+    <div class="container">
+        <span class="navbar-brand">MyUiRestDbService</span>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${active == 'students'} ? 'active'" th:href="@{/list}">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${active == 'groups'} ? 'active'" th:href="@{/groups}">Academic groups</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+</body>
+</html>
